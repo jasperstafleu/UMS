@@ -1,0 +1,8 @@
+Options +FollowSymlinks
+Options +Indexes
+RewriteEngine on
+Allow from all
+
+RewriteRule ^([^/]+/)*\. - [F]
+
+RewriteRule ^(.*)?$   public/$1 									[NC,L,QSA]

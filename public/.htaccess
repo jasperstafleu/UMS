@@ -1,0 +1,13 @@
+Options +FollowSymlinks
+Options +Indexes
+RewriteEngine on
+Allow from all
+
+RewriteRule ^([^/]+/)*\. - [F]
+
+SetEnvIf REDIRECT_slug ^(.*)$ slug=$1 !REDIRECT_slug
+
+RewriteCond ${ENV:slug} ^$
+RewriteCond %{REQUEST_FILENAME} !-d 
+RewriteCond %{REQUEST_FILENAME} !-f 
+RewriteRule ^(.*)?$ index.php [NC,L,QSA,E=slug:$1]
