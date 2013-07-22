@@ -6,7 +6,8 @@ namespace UMS\Controllers;
  *
  * @author Jasper Stafleu
  */
-class User {
+class User implements \UMS\Interfaces\iModelController
+{
 
     /**
      * Creates the User, using $_POST as properties of the user

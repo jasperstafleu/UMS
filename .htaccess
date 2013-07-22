@@ -5,4 +5,4 @@ Allow from all
 
 RewriteRule ^([^/]+/)*\. - [F]
 
-RewriteRule ^(.*)?$   public/$1 									[NC,L,QSA]
+RewriteRule ^(.*)?$ public/$1 [NC,L,QSA]

@@ -1,6 +1,27 @@
 <?php
 namespace UMS\Models;
 
+/**
+ * User model: responsible for containing user information: username (email) and
+ * password
+ *
+ * @method getEmail()
+ *         string getEmail()
+ *         Returns the email adress the user wants to receive reset password
+ *         answers to.
+ * @method setEmail()
+ *         \UMS\Models\User setEmail(string emailAdress)
+ *         Set the email adress the user wants to receive reset password answers
+ *         to.
+ * @method getPass()
+ *         string getPass()
+ *         Returns the users password
+ * @method setPass()
+ *         \UMS\Models\User setEmail(string emailAdress)
+ *         Set the users password to the string passed
+ *
+ * @author Jasper Stafleu
+ */
 class User extends Model
 {
     /**
@@ -19,4 +40,5 @@ class User extends Model
      * @var string
      */
     protected $_pass = '';
+
 } // end class User

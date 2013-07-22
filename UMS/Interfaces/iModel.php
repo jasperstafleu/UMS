@@ -1,6 +1,11 @@
 <?php
 namespace UMS\Interfaces;
 
+/**
+ * Interface for a model
+ *
+ * @author Jasper Stafleu
+ */
 interface iModel {
 
     /**

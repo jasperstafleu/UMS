@@ -3,6 +3,7 @@ namespace UMS\Controllers;
 
 /**
  * Autoloader is a catch-all class to bundle the autoloaders.
+ *
  * @author Jasper Stafleu
  */
 class Autoloader
