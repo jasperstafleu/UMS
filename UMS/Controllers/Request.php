@@ -3,6 +3,7 @@ namespace UMS\Controllers;
 
 /**
  * Handler for the requests made through the browser
+ *
  * @author Jasper Stafleu
  */
 class Request

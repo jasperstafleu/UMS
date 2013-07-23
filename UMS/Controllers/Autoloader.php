@@ -45,4 +45,5 @@ class Autoloader
 
         return class_exists($class);
     } // PSR2Autoloader();
+
 } // end class UMS\Controllers\Autoloader

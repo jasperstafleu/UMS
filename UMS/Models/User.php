@@ -22,7 +22,7 @@ namespace UMS\Models;
  *
  * @author Jasper Stafleu
  */
-class User extends Model
+class User extends DatabaseModel
 {
     /**
      * The email address for the user. This is the email address used to send
@@ -76,7 +76,6 @@ class User extends Model
     {
         return crypt($pass, $this->_pass) === $this->_pass;
     } // isCorrectPass();
-
 
     /**
      * Generates a random salt of $len length using letters from the $alphabet.

@@ -2,19 +2,25 @@
 namespace UMS\Models;
 
 /**
- * Abstract Model: some methods each model should contain
+ * Abstract Model: some methods each model should contain. This includes a magic
+ * getter, setter and caller. The first two redirect to getParam and setParam
+ * methods, which are caught by the third by default. The third looks for
+ * protected properties with the same name as the parameter called (prefixed
+ * with an underscore), and gets / sets that variable.
+ *
+ * Each class extending this abstract one should have two @method phpdoc part
+ * for each of its protected variables; a getter and a setter
  *
  * @author Jasper Stafleu
- *
  */
-abstract class Model implements \Serializable, \UMS\Interfaces\iModel
+abstract class Model implements \Serializable
 {
     /**
      * Constructor. It uses the argument as fields to initialize the entity
      *
      * @param array $properties
      */
-    public function __construct(array $properties)
+    public function __construct(array $properties = array())
     {
         foreach ( $properties as $key => $value ) {
             $this->$key = $value;
@@ -51,17 +57,6 @@ abstract class Model implements \Serializable, \UMS\Interfaces\iModel
     } // unserialize();
 
     /**
-     * (non-PHPdoc)
-     * @see \UMS\Interfaces\iModel::save()
-     */
-    public function save()
-    {
-        header('Content-type: text/txt');
-        var_dump($this);
-        // TODO: implement
-    } // save();
-
-    /**
      * Magic setter: set the $what propery to $value, provided the $what
      * property is defined as being protected
      *
@@ -77,7 +72,7 @@ abstract class Model implements \Serializable, \UMS\Interfaces\iModel
     /**
      * Retuns the value if _$what for this model.
      *
-     * @param unknown $what
+     * @param string $what
      */
     public function __get($what)
     {
