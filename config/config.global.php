@@ -10,7 +10,8 @@ ini_set("display_errors", true);
 error_reporting(E_ALL);
 
 // PHP minimum version compare
-if ( version_compare(PHP_VERSION, "5.3") < 0 ) {
+// Highest requirement: 5.3.7 for "safe" crypt method ($2y blowfish)
+if ( version_compare(PHP_VERSION, "5.3.7") < 0 ) {
     throw new Exception("PHP version " . PHP_VERSION . " is insufficient, please upgrade");
 }
 
