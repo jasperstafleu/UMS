@@ -22,7 +22,7 @@ namespace UMS\Models;
  *
  * @author Jasper Stafleu
  */
-class User extends DatabaseModel
+class User extends MySQLModel
 {
     /**
      * The email address for the user. This is the email address used to send

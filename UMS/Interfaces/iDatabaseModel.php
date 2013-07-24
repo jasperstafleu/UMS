@@ -21,7 +21,7 @@ interface iDatabaseModel
      *
      * @param integer $id
      */
-    public function get($id);
+    public static function get($id);
 
     /**
      * Retrieves all models of this type that have each of its valid fields set
@@ -30,6 +30,6 @@ interface iDatabaseModel
      * @param array $params
      * @return array of iDatabaseModels
      */
-    public function getAll(array $params = array());
+    public static function getAll(array $params = array());
 
 } // end interface \UMS\Interfaces\iDatabaseModel

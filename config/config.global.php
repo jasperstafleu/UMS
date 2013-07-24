@@ -2,7 +2,7 @@
 // -----------------------------------------------------------------------------
 // DO NOT add sensitive data in this file; use config.local.php instead, which
 // is .gitignored. It MUST at least contain
-// - Database information (server, name, password, etc)
+// - Database information (DB_NAME, DB_USER, DB_PASS)
 // -----------------------------------------------------------------------------
 
 // set error reporting. TODO: Turn this off for production environment
@@ -17,6 +17,9 @@ if ( version_compare(PHP_VERSION, "5.3.7") < 0 ) {
 
 // Set the ROOTDIR constant to the parent's parent directory
 define('ROOTDIR', realpath(getcwd() . DIRECTORY_SEPARATOR . '..') . DIRECTORY_SEPARATOR);
+
+// Set the default timezone to Europe/Amsterdam
+date_default_timezone_set("Europe/Amsterdam");
 
 // Enable autoloading
 require_once ROOTDIR . 'UMS/Controllers/Autoloader.php';
