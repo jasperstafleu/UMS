@@ -43,7 +43,8 @@ abstract class AbstractView implements \Iterator {
      * @param string $template
      * @param mixed $context
      */
-    public function __construct($template, $context = null) {
+    public function __construct($template, $context = null)
+    {
         $this->_context = $context;
 
         if ( is_array($context) ) {
@@ -58,7 +59,8 @@ abstract class AbstractView implements \Iterator {
     /**
      * Retrieves the current object
      */
-    public function getObject() {
+    public function getObject()
+    {
         return $this->_context;
     } // getObject();
 
@@ -67,7 +69,8 @@ abstract class AbstractView implements \Iterator {
      *
      * @param string $what
      */
-    public function __get($what) {
+    public function __get($what)
+    {
         if ( is_array($this->_context) ) {
             $ret = isset($this->_context[$what]) ? $this->_context[$what] : '';
         } else {
@@ -142,7 +145,8 @@ abstract class AbstractView implements \Iterator {
     /**
      * Requires the template of the view
      */
-    public function show() {
+    public function show()
+    {
         ob_start();
         require TMPLDIR . $this->_template;
         return ob_get_clean();
