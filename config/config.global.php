@@ -17,6 +17,7 @@ if ( version_compare(PHP_VERSION, "5.3.7") < 0 ) {
 
 // Set the ROOTDIR constant to the parent's parent directory
 define('ROOTDIR', realpath(getcwd() . DIRECTORY_SEPARATOR . '..') . DIRECTORY_SEPARATOR);
+define('TMPLDIR', ROOTDIR . 'templates' . DIRECTORY_SEPARATOR);
 
 // Set the default timezone to Europe/Amsterdam
 date_default_timezone_set("Europe/Amsterdam");
@@ -30,3 +31,7 @@ require_once ROOTDIR . 'UMS/Controllers/Autoloader.php';
 // ensure local config setting is done after any requirements for local settings,
 // but before anything local setting is not dependent upon
 require_once "config.local.php";
+
+// Create the session
+session_name('UMS');
+session_start();

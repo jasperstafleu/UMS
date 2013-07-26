@@ -74,16 +74,7 @@ abstract class MySQLModel extends Model implements \UMS\Interfaces\iDatabaseMode
      */
     public static function get($id)
     {
-        $refl = new \ReflectionClass(get_called_class());
-        $props = array();
-        $table = self::getTable();
-
-        foreach ( $refl->getProperties(\ReflectionProperty::IS_PROTECTED) as $prop ) {
-            $prop = $prop->getName();
-            $props []= "`{$table}`.`" . substr($prop, 1) . "` AS {$prop}";
-        } // foreach
-
-        $sql = "SELECT " . implode(',', $props) . " FROM {$table} WHERE id=:id LIMIT 1";
+        $sql = self::_getBaseSelect() . " WHERE id=:id LIMIT 1";
 
         $stmt = self::getPDO()->prepare($sql);
         $stmt->setFetchMode(\PDO::FETCH_CLASS, get_called_class());
@@ -100,8 +91,47 @@ abstract class MySQLModel extends Model implements \UMS\Interfaces\iDatabaseMode
      */
     public static function getAll(array $params = array())
     {
-        // TODO: ensure datetimes use CONVERT_TZ (see http://dev.mysql.com/doc/refman/5.0/en/date-and-time-functions.html#function%5Fconvert-tz)
+        $sql = '';
+        foreach ( $params as $prop => $value  ) {
+            $sql .= " AND {$prop}=:{$prop}";
+
+        } // foreach
+
+        $sql = self::_getBaseSelect() . " WHERE " . substr($sql, strlen(" AND "));
+
+        $stmt = self::getPDO()->prepare($sql);
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, get_called_class());
+
+        foreach ( $params as $prop => $value ) {
+            $stmt->bindValue(':' . $prop, $value);
+        }
+
+        $stmt->execute();
+        $ret = $stmt->fetchAll();
+        $stmt->closeCursor();
+
+        return $ret;
     } // getAll();
+
+    /**
+     * Returns the SELECT statement used for filling the entities fields. It
+     * should be concatenated with other strings (such as a WHERE clause)
+     *
+     * @return string
+     */
+    private static function _getBaseSelect()
+    {
+        $refl = new \ReflectionClass(get_called_class());
+        $props = array();
+        $table = self::getTable();
+
+        foreach ( $refl->getProperties(\ReflectionProperty::IS_PROTECTED) as $prop ) {
+            $prop = $prop->getName();
+            $props []= "`{$table}`.`" . substr($prop, 1) . "` AS {$prop}";
+        } // foreach
+
+        return "SELECT " . implode(',', $props) . " FROM {$table}";
+    } // _getBaseSelect();
 
     /**
      * Sets the table name for this class. If $db is provided, it is set to that

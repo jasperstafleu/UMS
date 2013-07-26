@@ -16,6 +16,7 @@ class Request
      */
     public static function handle($slug = '')
     {
+        $actualSlug = $slug;
         if ( $slug === '' ) {
             $slug = 'create/user';
         }
@@ -24,7 +25,29 @@ class Request
         $method = '_' . array_shift($explodedSlug);
 
         call_user_func_array([get_called_class(), $method], $explodedSlug);
+
+        $_SESSION['previous_slug'] = $actualSlug;
     } // handle();
+
+    /**
+     * Handler for a login action
+     */
+    protected static function _login()
+    {
+        Login::doLogin();
+        header('Location: /ums/' . (empty($_SESSION['previous_slug']) ? '' : $_SESSION['previous_slug']));
+        exit;
+    } // _login();
+
+    /**
+     * Handler for a logout action
+     */
+    protected static function _logout()
+    {
+        Login::doLogout();
+        header('Location: /ums/' . (empty($_SESSION['previous_slug']) ? '' : $_SESSION['previous_slug']));
+        exit;
+    } // _logout();
 
     /**
      * Create a new item

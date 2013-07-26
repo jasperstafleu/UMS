@@ -1,0 +1,19 @@
+<div class="thumbnail">
+    <fieldset class="caption clearfix">
+    <?php if ( !empty($_SESSION['User']) ) { ?>
+        <legend>Logged in as</legend>
+        <h4><?=$this?></h4>
+        <br/>
+        <a href="logout" class="btn pull-right">Log Out</a>
+    <?php } else { ?>
+        <legend>Login</legend>
+        <form action="login" method="POST">
+            <label for="username">Username</label>
+            <input type="text" placeholder="Username" name="email"/>
+            <label for="username">Password</label>
+            <input type="password" placeholder="Password" name="pass"/>
+            <input type="submit" value="Log in" class="btn btn-primary pull-right"/>
+        </form>
+    <?php } ?>
+    </fieldset>
+</div>

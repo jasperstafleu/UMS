@@ -16,7 +16,7 @@ class DateTime extends \DateTime
      * @return string
      * @see strftime
      */
-    function strftime($format)
+    public function strftime($format)
     {
         return strftime($format, $this->getTimestamp());
     } // strftime();
@@ -27,7 +27,7 @@ class DateTime extends \DateTime
      *
      * @return string
      */
-    function __toString()
+    public function __toString()
     {
         return $this->format(\DateTime::RFC3339);
     } // __toString();

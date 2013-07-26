@@ -87,10 +87,20 @@ class User extends MySQLModel
     public static function getRandomSalt($len = 22, $alphabet = './abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
     {
         $salt = '';
-        for ( $it = 0; $it < 22; $it++ ) {
+        for ( $it = 0; $it < $len; $it++ ) {
             $salt .= substr($alphabet, mt_rand(0, strlen($alphabet) - 1), 1);
         } // for
         return $salt;
     } // getRandomSalt();
+
+    /**
+     * String value of the User: returns username
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->_email;
+    } // __toString();
 
 } // end class User
