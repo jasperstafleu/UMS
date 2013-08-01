@@ -13,8 +13,6 @@
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 <!--[if IE]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
-
-
 </head>
 <body>
     <header class="jumbotron subhead">
@@ -30,7 +28,7 @@
     <div class="container">
         <div class="row">
             <article class="span9">
-                Content
+                <?=new UMS\Views\Content('userform.phtml', \UMS\Controllers\Login::getUser())?>
             </article>
             <aside class="span3">
                 <?=new UMS\Views\Login('login-box.phtml')?>

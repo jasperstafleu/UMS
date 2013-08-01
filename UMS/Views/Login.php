@@ -7,8 +7,8 @@ namespace UMS\Views;
  *
  * @author Jasper Stafleu
  */
-class Login extends AbstractView {
-
+class Login extends AbstractView
+{
     /**
      * Constructor for the view
      *

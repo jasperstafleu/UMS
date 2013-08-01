@@ -6,7 +6,8 @@ namespace UMS\Views;
  *
  * @author Jasper Stafleu
  */
-abstract class AbstractView implements \Iterator {
+abstract class AbstractView implements \Iterator
+{
     /**
      * If an object is passed to the constructor, this is where the object is
      * held in.
@@ -74,7 +75,7 @@ abstract class AbstractView implements \Iterator {
         if ( is_array($this->_context) ) {
             $ret = isset($this->_context[$what]) ? $this->_context[$what] : '';
         } else {
-            $ret = isset($this->_context->$what) ? $this->_context->$what : '';;
+            $ret = $this->_context->$what ?: '';
         }
 
         return $ret;

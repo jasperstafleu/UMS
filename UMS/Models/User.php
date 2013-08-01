@@ -42,6 +42,25 @@ class User extends MySQLModel
     protected $_pass = '';
 
     /**
+     * The user's first name
+     * @var string
+     */
+    protected $_firstname = '';
+
+    /**
+     * The user's lastname prefix (if any)
+     * @var string
+     */
+    protected $_lastnameprefix = '';
+
+    /**
+     * The user's lastname
+     *
+     * @var string
+     */
+    protected $_lastname = '';
+
+    /**
      * Sets the password. Overrides the default pass setter to first encode it
      * in a safe manner for use in storing in the database.
      *
@@ -65,6 +84,16 @@ class User extends MySQLModel
     {
         return '***';
     } // getPass();
+
+    /**
+     * Returns the user's full name, as retrieved from various parts of the user
+     *
+     * @return string
+     */
+    public function getFullName()
+    {
+        return implode(' ', array_filter(array($this->firstname, $this->lastnameprefix, $this->lastname)));
+    } // getFullName();
 
     /**
      * Returns true iff the $pass is the user's pass.
@@ -100,7 +129,7 @@ class User extends MySQLModel
      */
     public function __toString()
     {
-        return $this->_email;
+        return $this->fullname;
     } // __toString();
 
 } // end class User

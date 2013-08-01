@@ -1,4 +1,5 @@
-.jumbotron {
+.jumbotron
+{
   position: relative;
   padding: 2em 0;
   margin-bottom: 2em;
@@ -15,4 +16,34 @@
   -webkit-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
      -moz-box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
           box-shadow: inset 0 3px 7px rgba(0,0,0,.2), inset 0 -3px 7px rgba(0,0,0,.2);
+}
+
+input + .add-on [class^="icon-"]
+{
+	display: none;
+}
+
+input:required:invalid + .add-on
+{
+	background-color: #eed3d7;
+}
+
+input:required:valid + .add-on
+{
+	background-color: #dff0d8;
+}
+
+input:required:invalid + .add-on .icon-edit
+{
+	display: inline-block;
+}
+
+input:required:valid + .add-on .icon-check
+{
+	display: inline-block;
+}
+
+.form-actions {
+	border-top: 0px;
+	background-color: transparent;
 }

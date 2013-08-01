@@ -1,8 +1,8 @@
 <?php
 namespace UMS\Controllers;
 
-class Login {
-
+class Login
+{
     /**
      * Performs a login using the POST variables
      */
@@ -29,5 +29,14 @@ class Login {
             unset($_SESSION['User']);
         }
     } // doLogout();
+
+    /**
+     * Returns the currently logged in user
+     * @return \UMS\Models\User
+     */
+    public static function getUser()
+    {
+        return isset($_SESSION['User']) ? $_SESSION['User'] : null;
+    } // getUser();
 
 } // UMS\Controllers\Login

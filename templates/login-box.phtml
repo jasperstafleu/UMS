@@ -1,6 +1,6 @@
 <div class="thumbnail">
     <fieldset class="caption clearfix">
-    <?php if ( !empty($_SESSION['User']) ) { ?>
+    <?php if ( $user = \UMS\Controllers\Login::getUser() ) { ?>
         <legend>Logged in as</legend>
         <h4><?=$this?></h4>
         <br/>
