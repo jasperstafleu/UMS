@@ -28,7 +28,7 @@
     <div class="container">
         <div class="row">
             <article class="span9">
-                <?=new UMS\Views\Content('userform.phtml', \UMS\Controllers\Login::getUser())?>
+                <?=new UMS\Views\Content('userform.phtml', $this)?>
             </article>
             <aside class="span3">
                 <?=new UMS\Views\Login('login-box.phtml')?>

@@ -18,7 +18,7 @@ class Request
     {
         $actualSlug = $slug;
         if ( $slug === '' ) {
-            $slug = 'create/user';
+            $slug = 'contextbased/user';
         }
 
         $explodedSlug = explode('/', $slug);
@@ -54,11 +54,11 @@ class Request
      *
      * @return mixed
      */
-    protected static function _create()
+    protected static function _contextbased()
     {
         $arguments = func_get_args();
         $what = __NAMESPACE__ . '\\' . ucfirst(array_shift($arguments));
-        return call_user_func_array([$what, 'create'], $arguments);
+        return call_user_func_array([$what, 'contextbased'], $arguments);
     } // _create();
 
 } // end class UMS\Controllers\Request

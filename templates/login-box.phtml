@@ -8,10 +8,10 @@
     <?php } else { ?>
         <legend>Login</legend>
         <form action="login" method="POST">
-            <label for="username">Username</label>
-            <input type="text" placeholder="Username" name="email"/>
-            <label for="username">Password</label>
-            <input type="password" placeholder="Password" name="pass"/>
+            <label for="<?=$this->randomID?>-username">Username</label>
+            <input type="text" placeholder="Username" name="email" id="<?=$this->randomID?>-username"/>
+            <label for="<?=$this->randomID?>-pass">Password</label>
+            <input type="password" placeholder="Password" name="pass" id="<?=$this->randomID?>-pass"/>
             <input type="submit" value="Log in" class="btn btn-primary pull-right"/>
         </form>
     <?php } ?>

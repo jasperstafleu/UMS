@@ -39,6 +39,15 @@ abstract class AbstractView implements \Iterator
     private $_templateMode = false;
 
     /**
+     * Holder for an ID generated randomly for each view. View templates can
+     * generate ids that are prefixed using this ID, thus ensuring no conflict
+     * occuring between this and other views.
+     *
+     * @var integer
+     */
+    public $randomID = 0;
+
+    /**
      * Constructor. Shows the $template, using $context to build with
      *
      * @param string $template
@@ -55,6 +64,8 @@ abstract class AbstractView implements \Iterator
         }
 
         $this->_template = $template;
+
+        $this->randomID = mt_rand();
     } // show();
 
     /**
@@ -75,7 +86,7 @@ abstract class AbstractView implements \Iterator
         if ( is_array($this->_context) ) {
             $ret = isset($this->_context[$what]) ? $this->_context[$what] : '';
         } else {
-            $ret = $this->_context->$what ?: '';
+            $ret = @$this->_context->$what ?: '';
         }
 
         return $ret;
