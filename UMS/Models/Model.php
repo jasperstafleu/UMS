@@ -66,7 +66,7 @@ abstract class Model implements \Serializable
     public function __set($what, $value)
     {
         $method = 'set' . ucfirst($what);
-        return call_user_func_array([$this, $method], [$value]);
+        return call_user_func_array(array($this, $method), array($value));
     } // __set();
 
     /**

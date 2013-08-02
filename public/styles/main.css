@@ -43,7 +43,8 @@ input:required:valid + .add-on .icon-check
 	display: inline-block;
 }
 
-.form-actions {
+.form-actions
+{
 	border-top: 0px;
 	background-color: transparent;
 }

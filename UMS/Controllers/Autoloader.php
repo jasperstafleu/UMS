@@ -17,9 +17,7 @@ class Autoloader
             throw new Exception("Unknown autoloader " . $type);
         }
 
-        $args = func_get_args();
-        array_shift($args);
-        spl_autoload_register([get_called_class(), $type]);
+        spl_autoload_register(array(get_called_class(), $type));
     } // enable();
 
     /**

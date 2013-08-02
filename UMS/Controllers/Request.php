@@ -24,7 +24,7 @@ class Request
         $explodedSlug = explode('/', $slug);
         $method = '_' . array_shift($explodedSlug);
 
-        call_user_func_array([get_called_class(), $method], $explodedSlug);
+        call_user_func_array(array(get_called_class(), $method), $explodedSlug);
 
         $_SESSION['previous_slug'] = $actualSlug;
     } // handle();
@@ -58,7 +58,7 @@ class Request
     {
         $arguments = func_get_args();
         $what = __NAMESPACE__ . '\\' . ucfirst(array_shift($arguments));
-        return call_user_func_array([$what, 'contextbased'], $arguments);
+        return call_user_func_array(array($what, 'contextbased'), $arguments);
     } // _create();
 
 } // end class UMS\Controllers\Request
