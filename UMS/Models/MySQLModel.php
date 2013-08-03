@@ -58,15 +58,48 @@ abstract class MySQLModel extends Model implements \UMS\Interfaces\iDatabaseMode
     /**
      * (non-PHPdoc)
      * @see \UMS\Interfaces\iDatabaseModel::save()
+     * @throws PDOException
      */
     public function save()
     {
-        self::setTable();
-
-        header('Content-type: text/txt');
-        print_r($this);
-        // TODO: implement
+        return $this->id ? $this->_update() : $this->_insert();
     } // save();
+
+    private function _update()
+    {
+        self::setTable();
+        // TODO: Implement _update
+    } // _update
+
+    /**
+     * Handles database insertion of a new object
+     *
+     * @throws PDOException
+     * @return \UMS\Models\MySQLModel
+     */
+    private function _insert()
+    {
+        self::setTable();
+        $table = self::getTable();
+        $props = self::_getModelFields();
+
+        $sql = "INSERT INTO `{$table}` (`" . implode('` ,`', $props) . "`)"
+                . " VALUES (:" . implode(', :', $props) . ")";
+
+        $stmt = self::getPDO()->prepare($sql);
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, get_called_class());
+
+        foreach ( $props as $prop => $field ) {
+            $stmt->bindValue(':' . $field, $this->$prop);
+        }
+
+        $stmt->execute();
+
+        $stmt->closeCursor();
+        $this->id = self::getPDO()->lastInsertId();
+
+        return $this;
+    } // _insert();
 
     /**
      * (non-PHPdoc)
@@ -112,26 +145,6 @@ abstract class MySQLModel extends Model implements \UMS\Interfaces\iDatabaseMode
 
         return $ret;
     } // getAll();
-
-    /**
-     * Returns the SELECT statement used for filling the entities fields. It
-     * should be concatenated with other strings (such as a WHERE clause)
-     *
-     * @return string
-     */
-    private static function _getBaseSelect()
-    {
-        $refl = new \ReflectionClass(get_called_class());
-        $props = array();
-        $table = self::getTable();
-
-        foreach ( $refl->getProperties(\ReflectionProperty::IS_PROTECTED) as $prop ) {
-            $prop = $prop->getName();
-            $props []= "`{$table}`.`" . substr($prop, 1) . "` AS {$prop}";
-        } // foreach
-
-        return "SELECT " . implode(',', $props) . " FROM {$table}";
-    } // _getBaseSelect();
 
     /**
      * Sets the table name for this class. If $db is provided, it is set to that
@@ -187,5 +200,49 @@ abstract class MySQLModel extends Model implements \UMS\Interfaces\iDatabaseMode
 
         return self::$_pdo;
     } // getPDO();
+
+    /**
+     * Returns the SELECT statement used for filling the entities fields. It
+     * should be concatenated with other strings (such as a WHERE clause)
+     *
+     * @return string
+     */
+    private static function _getBaseSelect()
+    {
+        $table = self::getTable();
+        $props = self::_getModelFields(true);
+
+        foreach ( $props as $prop => $field ) {
+            $selProps []= " `{$table}`.`{$field}` AS {$prop}";
+        } // foreach
+
+        return "SELECT" . implode(',', $selProps) . " FROM `{$table}`";
+    } // _getBaseSelect();
+
+    /**
+     * Returns the properties this model has. It is based on the protected
+     * properties of the model, and the same fields (minus the starting
+     * underscore) must be present in the database as well.
+     *
+     * @param boolean $dbFields    If set to true, returns the database form of
+     *                             the property, instead of the actual form. In
+     *                             the abstract form, this means removing the
+     *                             first character (underscore)
+     * @return array               The fields of this model. The keys will be
+     *                             the model fields (with underscore), while the
+     *                             values will be database form
+     */
+    protected static function _getModelFields()
+    {
+        $refl = new \ReflectionClass(get_called_class());
+        $props = array();
+
+        foreach ( $refl->getProperties(\ReflectionProperty::IS_PROTECTED) as $prop ) {
+            $prop = $prop->getName();
+            $props [$prop]= substr($prop, 1);
+        } // foreach
+
+        return $props;
+    } // _getModelFields();
 
 } // end class MySQLModel

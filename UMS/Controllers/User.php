@@ -21,21 +21,36 @@ class User
             // no errors? Save the user, log her in and try context based
             // handling (usually goes to update the same user)
             if ( empty($_POST['errors']) ) {
-                $user->save();
+                try {
+                    $res = $user->save();
 
-                // If no user is already logged in (ie an admin creating a new
-                // account), log the newly created user in
-                if ( !Login::getUser() ) {
-                    Login::doLogin();
+                    // If no user is already logged in (ie an admin creating a new
+                    // account), log the newly created user in
+                    if ( !Login::getUser() ) {
+                        Login::doLogin();
+                    }
+
+                    // ensure the new contextbased action is not triggered using the
+                    // just posted values
+                    $_POST = array();
+
+                    // go to context based action determination (update for new
+                    // users, listing for admins
+                    return self::contextbased();
+                } catch ( \PDOException $e ) {
+                    switch ( $e->getCode() ) {
+                        case 23000:
+                            // 23000 is a unique constraint exception. Since
+                            // only the email field is unique, this must be the
+                            // issue
+                            $_POST['errors'] = array(
+                                'email' => 'User already exists, please select a different email adress'
+                            );
+                            break;
+                        default:
+                            throw $e;
+                    } // switch
                 }
-
-                // ensure the new contextbased action is not triggered using the
-                // just posted values
-                $_POST = array();
-
-                // go to context based action determination (update for new
-                // users, listing for admins
-                return self::contextbased();
             }
         }
 
