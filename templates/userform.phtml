@@ -1,4 +1,11 @@
 <form class="form-horizontal" method="POST">
+    <?php if ( $this->errors === array() ) { ?>
+    <span class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        Your account has been succesfully created, and you've been logged in.
+        Happy managing!
+    </span>
+    <?php } ?>
     <div class="control-group">
         <label class="control-label" for="<?=$this->randomID?>-firstname">First name</label>
         <div class="controls">
@@ -13,9 +20,17 @@
                 />
                 <span class="add-on">
                     <i class="icon-edit" title="Required"></i>
-                    <i class="icon-check" title="Correct"></i>
+                    <i class="icon-check" title="Accepted"></i>
                 </span>
             </div>
+            <?php if ( !empty($this->errors['firstname']) ) {?>
+            <span class="help-inline">
+                <span class="alert alert-error span3">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Error</strong>: <?=$this->errors['firstname']?>
+                </span>
+            </span>
+            <?php } ?>
         </div>
     </div>
 
@@ -32,9 +47,17 @@
                 />
                 <span class="add-on">
                     <i class="icon-edit" title="Required"></i>
-                    <i class="icon-check" title="Correct"></i>
+                    <i class="icon-check" title="Accepted"></i>
                 </span>
             </div>
+            <?php if ( !empty($this->errors['lastnameprefix']) ) {?>
+            <span class="help-inline">
+                <span class="alert alert-error span3">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Error</strong>: <?=$this->errors['lastnameprefix']?>
+                </span>
+            </span>
+            <?php } ?>
         </div>
     </div>
 
@@ -52,9 +75,17 @@
                 />
                 <span class="add-on">
                     <i class="icon-edit" title="Required"></i>
-                    <i class="icon-check" title="Correct"></i>
+                    <i class="icon-check" title="Accepted"></i>
                 </span>
             </div>
+            <?php if ( !empty($this->errors['lastname']) ) {?>
+            <span class="help-inline">
+                <span class="alert alert-error span3">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Error</strong>: <?=$this->errors['lastname']?>
+                </span>
+            </span>
+            <?php } ?>
         </div>
     </div>
 
@@ -73,9 +104,17 @@
                 />
                 <span class="add-on">
                     <i class="icon-edit" title="Required"></i>
-                    <i class="icon-check" title="Correct"></i>
+                    <i class="icon-check" title="Accepted"></i>
                 </span>
             </div>
+            <?php if ( !empty($this->errors['email']) ) {?>
+            <span class="help-inline">
+                <span class="alert alert-error span3">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Error</strong>: <?=$this->errors['email']?>
+                </span>
+            </span>
+            <?php } ?>
         </div>
     </div>
 
@@ -93,9 +132,17 @@
                 />
                 <span class="add-on">
                     <i class="icon-edit" title="Required"></i>
-                    <i class="icon-check" title="Correct"></i>
+                    <i class="icon-check" title="Accepted"></i>
                 </span>
             </div>
+            <?php if ( !empty($this->errors['email-repeat']) ) {?>
+            <span class="help-inline">
+                <span class="alert alert-error span3">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Error</strong>: <?=$this->errors['email-repeat']?>
+                </span>
+            </span>
+            <?php } ?>
             <span class="help-block">
                 Please repeat your email adress to ensure it is correct. We ask
                 you to do this because we sent password reset requests to this
@@ -118,9 +165,17 @@
                 />
                 <span class="add-on">
                     <i class="icon-edit" title="Required"></i>
-                    <i class="icon-check" title="Correct"></i>
+                    <i class="icon-check" title="Accepted"></i>
                 </span>
             </div>
+            <?php if ( !empty($this->errors['pass']) ) {?>
+            <span class="help-inline">
+                <span class="alert alert-error span3">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Error</strong>: <?=$this->errors['pass']?>
+                </span>
+            </span>
+            <?php } ?>
         </div>
     </div>
 
