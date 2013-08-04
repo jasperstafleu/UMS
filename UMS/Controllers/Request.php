@@ -49,16 +49,10 @@ class Request
         exit;
     } // _logout();
 
-    /**
-     * Create a new item
-     *
-     * @return mixed
-     */
-    protected static function _contextbased()
+    public static function __callStatic($method, $arguments)
     {
-        $arguments = func_get_args();
         $what = __NAMESPACE__ . '\\' . ucfirst(array_shift($arguments));
-        return call_user_func_array(array($what, 'contextbased'), $arguments);
-    } // _create();
+        return call_user_func_array(array($what, substr($method, 1)), $arguments);
+    } // _update();
 
 } // end class UMS\Controllers\Request

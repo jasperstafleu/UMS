@@ -18,17 +18,19 @@
     <header class="jumbotron subhead">
         <div class="container">
             <h1>UMS</h1>
-            <p class="lead">
-                A <u>U</u>ser <u>M</u>anagement <u>S</u>ystem designed to be
-                distributable as code examples of my coding style.<br/>
-                This version was created fully from scratch.
-            </p>
-        </div>
+			<p class="lead">
+				A <u>U</u>ser <u>M</u>anagement <u>S</u>ystem designed to be
+				distributable as code examples of my coding style.<br /> This
+				version is build using <a href="http://php.net" target="_blank">PHP</a>
+				(no backend framework) and <a href="http://getbootstrap.com/2.3.2/"
+					target="_blank">twitter bootstrap</a> as front-end framework
+			</p>
+		</div>
     </header>
     <div class="container">
         <div class="row">
             <article class="span9">
-                <?=new UMS\Views\Content('userform.phtml', $this)?>
+                <?=new UMS\Views\Content($this->id ? 'update-user-form.phtml' : 'create-user-form.phtml', $this)?>
             </article>
             <aside class="span3">
                 <?=new UMS\Views\Login('login-box.phtml')?>

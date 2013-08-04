@@ -1,11 +1,4 @@
-<form class="form-horizontal" method="POST">
-    <?php if ( $this->errors === array() ) { ?>
-    <span class="alert alert-success">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        Your account has been succesfully created, and you've been logged in.
-        Happy managing!
-    </span>
-    <?php } ?>
+<form class="form-horizontal" method="POST" novalidate="novalidate">
     <div class="control-group">
         <label class="control-label" for="<?=$this->randomID?>-firstname">First name</label>
         <div class="controls">
@@ -180,7 +173,7 @@
     </div>
 
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary" name="save" value="save">Save user</button>
+        <button type="submit" class="btn btn-primary" name="submit" value="create">Save user</button>
         <button type="reset" class="btn">Reset form</button>
     </div>
 

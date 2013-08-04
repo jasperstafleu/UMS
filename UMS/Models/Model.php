@@ -20,12 +20,23 @@ abstract class Model implements \Serializable
      *
      * @param array $properties
      */
-    public function __construct(array $properties = array())
+    public function __construct(array $values = array())
     {
-        foreach ( $properties as $key => $value ) {
+        $this->values($values);
+    } // __construct();
+
+    /**
+     * Setter for multiple values at once. Just pass it an array of field=>value
+     * pairs
+     *
+     * @param array $values
+     */
+    public function values(array $values)
+    {
+        foreach ( $values as $key => $value ) {
             $this->$key = $value;
         } // foreach
-    } // __construct();
+    } // values();
 
     /**
      * (non-PHPdoc)
