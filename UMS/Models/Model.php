@@ -124,4 +124,4 @@ abstract class Model implements \Serializable
         }
     } // __call();
 
-} // end class Models
+} // end class UMS\Models\Model

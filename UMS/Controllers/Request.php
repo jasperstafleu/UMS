@@ -49,10 +49,19 @@ class Request
         exit;
     } // _logout();
 
+    /**
+     * Default type of handling: the $method is enacted upon the first of the
+     * arguments, using the rest as arguments for the call. Eg: a slug in the
+     * form of /update/user/2 becomes the call \UMS\Controllers\User::update(2)
+     *
+     * @param string $method
+     * @param array $arguments
+     * @return mixed
+     */
     public static function __callStatic($method, $arguments)
     {
         $what = __NAMESPACE__ . '\\' . ucfirst(array_shift($arguments));
         return call_user_func_array(array($what, substr($method, 1)), $arguments);
-    } // _update();
+    } // __callStatic();
 
 } // end class UMS\Controllers\Request

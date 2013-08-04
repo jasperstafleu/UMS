@@ -32,4 +32,4 @@ interface iDatabaseModel
      */
     public static function getAll(array $params = array());
 
-} // end interface \UMS\Interfaces\iDatabaseModel
+} // end interface UMS\Interfaces\iDatabaseModel

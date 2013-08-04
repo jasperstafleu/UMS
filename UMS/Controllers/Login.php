@@ -39,4 +39,4 @@ class Login
         return isset($_SESSION['User']) ? $_SESSION['User'] : null;
     } // getUser();
 
-} // UMS\Controllers\Login
+} // end class UMS\Controllers\Login

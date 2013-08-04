@@ -32,4 +32,4 @@ class DateTime extends \DateTime
         return $this->format(\DateTime::RFC3339);
     } // __toString();
 
-} // end class DateTimes
+} // end class UMS\Models\DateTime

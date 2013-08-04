@@ -19,4 +19,4 @@ class Login extends AbstractView
         parent::__construct($template, empty($_SESSION['User']) ? null : $_SESSION['User']);
     } // __construct();
 
-} // end class Login();
+} // end class UMS\Views\Login

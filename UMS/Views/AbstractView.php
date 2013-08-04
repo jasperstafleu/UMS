@@ -66,7 +66,7 @@ abstract class AbstractView implements \Iterator
         $this->_template = $template;
 
         $this->randomID = mt_rand();
-    } // show();
+    } // __construct();
 
     /**
      * Retrieves the current object

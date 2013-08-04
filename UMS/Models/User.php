@@ -132,4 +132,4 @@ class User extends MySQLModel
         return $this->fullname;
     } // __toString();
 
-} // end class User
+} // end class UMS\Models\User

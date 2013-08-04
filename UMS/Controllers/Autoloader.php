@@ -42,6 +42,6 @@ class Autoloader
         chdir($cwd);
 
         return class_exists($class);
-    } // PSR2Autoloader();
+    } // PSR2();
 
 } // end class UMS\Controllers\Autoloader

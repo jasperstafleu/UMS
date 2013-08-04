@@ -65,11 +65,17 @@ abstract class MySQLModel extends Model implements \UMS\Interfaces\iDatabaseMode
         return $this->id ? $this->_update() : $this->_insert();
     } // save();
 
+    /**
+     * Updates this model into the database
+     *
+     * @throws PDOException
+     * @return \UMS\Models\MySQLModel
+     */
     private function _update()
     {
         self::setTable();
         // TODO: Implement _update
-    } // _update
+    } // _update();
 
     /**
      * Handles database insertion of a new object
@@ -91,7 +97,7 @@ abstract class MySQLModel extends Model implements \UMS\Interfaces\iDatabaseMode
 
         foreach ( $props as $prop => $field ) {
             $stmt->bindValue(':' . $field, $this->$prop);
-        }
+        } // foreach
 
         $stmt->execute();
 
@@ -127,7 +133,6 @@ abstract class MySQLModel extends Model implements \UMS\Interfaces\iDatabaseMode
         $sql = '';
         foreach ( $params as $prop => $value  ) {
             $sql .= " AND {$prop}=:{$prop}";
-
         } // foreach
 
         $sql = self::_getBaseSelect() . " WHERE " . substr($sql, strlen(" AND "));
@@ -137,7 +142,7 @@ abstract class MySQLModel extends Model implements \UMS\Interfaces\iDatabaseMode
 
         foreach ( $params as $prop => $value ) {
             $stmt->bindValue(':' . $prop, $value);
-        }
+        } // foreach
 
         $stmt->execute();
         $ret = $stmt->fetchAll();
@@ -245,4 +250,4 @@ abstract class MySQLModel extends Model implements \UMS\Interfaces\iDatabaseMode
         return $props;
     } // _getModelFields();
 
-} // end class MySQLModel
+} // end class UMS\Models\MySQLModel
