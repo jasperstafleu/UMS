@@ -1,6 +1,8 @@
 <?php
 namespace UMS\Controllers;
 
+use UMS\Models\LoginCookie;
+
 class Login
 {
     /**
@@ -15,6 +17,14 @@ class Login
         foreach ( $potentialUsers as $user ) {
             if ( $user->isCorrectPass($_POST['pass']) ) {
                 $_SESSION['User'] = $user;
+
+                if ( !empty($_POST['remember']) ) {
+                    $cookie = new \UMS\Models\LoginCookie(array(
+                            'user' => $user->id
+                    ));
+                    $cookie->save();
+                }
+
                 return;
             }
         } // foreach
@@ -28,6 +38,9 @@ class Login
         if ( isset($_SESSION['User']) ) {
             unset($_SESSION['User']);
         }
+        if ( isset($_SESSION['LoginCookie']) ) {
+            $_SESSION['LoginCookie']->remove();
+        }
     } // doLogout();
 
     /**
@@ -38,5 +51,22 @@ class Login
     {
         return isset($_SESSION['User']) ? $_SESSION['User'] : null;
     } // getUser();
+
+    /**
+     * Handler for automatic logging in. This particular method works via a
+     * cookie, set during doLogin (based on the remember checkbox
+     */
+    public static function autoLogin()
+    {
+        if ( self::getUser() ) {
+            // No need to do a autologin if already logged in
+            return;
+        }
+
+        if ( $cookie = \UMS\Models\LoginCookie::getLoginCookie() ) {
+            $_SESSION['User'] = \UMS\Models\User::get($cookie->getUser());
+            $_SESSION['LoginCookie'] = $cookie;
+        }
+    } // autoLogin();
 
 } // end class UMS\Controllers\Login

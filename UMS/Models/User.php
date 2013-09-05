@@ -19,7 +19,24 @@ namespace UMS\Models;
  * @method setPass()
  *         \UMS\Models\User setEmail(string pass)
  *         Set the users password to the string passed
- *
+ * @method getFirstname()
+ *         string getFirstname()
+ *         Gets the firstname of this user
+ * @method setFirstname()
+ *         \UMS\Models\User setFirstname(string firstname)
+ *         Sets the firstname of this user
+ * @method getLastnameprefix()
+ *         string getLastnameprefix()
+ *         Gets the lastname prefix of this user
+ * @method setLastnameprefix()
+ *         \UMS\Models\User setLastnameprefix(string lastnameprefix)
+ *         Sets the lastname prefix of this user
+ * @method getLastname()
+ *         string getLastname()
+ *         Gets the lastname of this user
+ * @method setLastname()
+ *         \UMS\Models\User setLastname(string lastname)
+ *         Sets the lastname of this user
  * @author Jasper Stafleu
  */
 class User extends MySQLModel

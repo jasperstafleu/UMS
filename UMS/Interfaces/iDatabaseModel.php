@@ -17,6 +17,13 @@ interface iDatabaseModel
     public function save();
 
     /**
+     * Remove the model from the Database. Dependent on the actual model, this
+     * might be simply a DELETE action, setting a deleted flag or include
+     * creating a backup
+     */
+    public function remove();
+
+    /**
      * Retrieve the model with $id from the database
      *
      * @param integer $id

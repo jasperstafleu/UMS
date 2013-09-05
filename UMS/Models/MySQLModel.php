@@ -4,6 +4,26 @@ namespace UMS\Models;
 /**
  * Some default methods pertaining to a database model
  *
+ * @method getId()
+ *         integer getId()
+ *         Retrieve the model's autoincrement key
+ * @method setId()
+ *         \UMS\Models\MySQLModel setId(integer $id)
+ *         Set the model's autoincrement key
+ * @method getCreated()
+ *         \UMS\Models\DateTime getCreated()
+ *         The \UMS\Models\DateTime value of the time at which the model was
+ *         created
+ * @method setCreated()
+ *         \UMS\Models\MySQLModel setCreated(\UMS\Models\DateTime $datetime)
+ *         Setter for the time at which the model was created
+ * @method getChanged()
+ *         \UMS\Models\DateTime getChanged()
+ *         The \UMS\Models\DateTime value of most recent time at which the model
+ *         was changed
+ * @method setChanged()
+ *         \UMS\Models\MySQLModel setChanged(\UMS\Models\DateTime $datetime)
+ *         Setter for the changed time of the model
  * @author Jasper Stafleu
  */
 abstract class MySQLModel extends Model implements \UMS\Interfaces\iDatabaseModel
@@ -66,25 +86,26 @@ abstract class MySQLModel extends Model implements \UMS\Interfaces\iDatabaseMode
     } // save();
 
     /**
-     * Updates this model into the database
-     *
-     * @throws PDOException
-     * @return \UMS\Models\MySQLModel
+     * (non-PHPdoc)
+     * @see \UMS\Interfaces\iDatabaseModel::remove()
      */
-    private function _update()
+    public function remove()
     {
-        self::setTable();
-        // TODO: Implement _update
-    } // _update();
+        $this->_delete();
+    } // remove();
 
     /**
-     * Handles database insertion of a new object
+     * Updates this model into the database
      *
      * @throws PDOException
      * @return \UMS\Models\MySQLModel
      */
     private function _insert()
     {
+        if ( $this->id !== 0 ) {
+            throw new \Exception('Can not insert an already existing ' . get_called_class() . ' ');
+        }
+
         self::setTable();
         $table = self::getTable();
         $props = self::_getModelFields();
@@ -105,7 +126,61 @@ abstract class MySQLModel extends Model implements \UMS\Interfaces\iDatabaseMode
         $this->id = self::getPDO()->lastInsertId();
 
         return $this;
-    } // _insert();
+        // TODO: Implement _update
+    } // _update();
+
+    /**
+     * Handles DELETE actions on the item
+     */
+    private function _delete()
+    {
+        if ( $this->id === 0 ) {
+            throw new \Exception('Can not update a non-existing ' . get_called_class() . ' ');
+        }
+
+        self::setTable();
+        $table = self::getTable();
+
+        $sql = "DELETE FROM `{$table}` WHERE `id`={$this->id}";
+
+        self::getPDO()->exec($sql);
+    } // _delete();
+
+    /**
+     * Handles database insertion of a new object
+     *
+     * @throws PDOException
+     * @return \UMS\Models\MySQLModel
+     */
+    private function _update()
+    {
+        if ( $this->id === 0 ) {
+            throw new \Exception('Can not update a non-existing ' . get_called_class() . ' ');
+        }
+
+        $this->_changed = new DateTime();
+
+        self::setTable();
+        $table = self::getTable();
+        $props = self::_getModelFields();
+
+        $values = array();
+        foreach ( $props as $field ) {
+            $values []= " `{$field}` = :{$field}";
+        } // foreach
+
+        $sql = "UPDATE `{$table}` SET " . implode(', ', $values) . " WHERE id=:id";
+        $stmt = self::getPDO()->prepare($sql);
+
+        foreach ( $props as $prop => $field ) {
+            $stmt->bindValue(':' . $field, $this->$prop);
+        } // foreach
+
+        $stmt->execute();
+        $stmt->closeCursor();
+
+        return $this;
+    } // _update();
 
     /**
      * (non-PHPdoc)

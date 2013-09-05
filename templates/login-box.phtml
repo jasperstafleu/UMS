@@ -9,9 +9,25 @@
         <legend>Login</legend>
         <form action="login" method="POST">
             <label for="<?=$this->randomID?>-username">Username</label>
-            <input type="text" placeholder="Username" name="email" id="<?=$this->randomID?>-username"/>
+            <input  type="text"
+                    placeholder="Username"
+                    name="email"
+                    id="<?=$this->randomID?>-username"
+            />
             <label for="<?=$this->randomID?>-pass">Password</label>
-            <input type="password" placeholder="Password" name="pass" id="<?=$this->randomID?>-pass"/>
+            <input  type="password"
+                    placeholder="Password"
+                    name="pass"
+                    id="<?=$this->randomID?>-pass"
+            />
+            <label for="<?=$this->randomID?>-remember" class="checkbox">
+                <input type="checkbox"
+                    name="remember"
+                    value="1"
+                    id="<?=$this->randomID?>-remember"
+                />
+                Remember me
+            </label>
             <input type="submit" value="Log in" class="btn btn-primary pull-right"/>
         </form>
     <?php } ?>

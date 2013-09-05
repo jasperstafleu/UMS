@@ -16,6 +16,8 @@ class Request
      */
     public static function handle($slug = '')
     {
+        Login::autoLogin();
+
         $actualSlug = $slug;
         if ( $slug === '' ) {
             $slug = 'contextbased/user';
